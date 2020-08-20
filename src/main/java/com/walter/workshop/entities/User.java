@@ -1,11 +1,16 @@
 package com.walter.workshop.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User implements Serializable {
@@ -18,6 +23,10 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Demand> demands = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -59,6 +68,10 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public List<Demand> getDemands() {
+		return demands;
+	}
+
 	public User() {}
 	
 	public User(Long id, String name, String email, String phone, String password) {
@@ -92,6 +105,11 @@ public class User implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", password=" + password + "]";
 	}
 	
 }

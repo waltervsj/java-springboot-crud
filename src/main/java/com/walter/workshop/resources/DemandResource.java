@@ -10,24 +10,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.walter.workshop.entities.User;
-import com.walter.workshop.services.UserService;
+import com.walter.workshop.entities.Demand;
+import com.walter.workshop.services.DemandService;
 
 @RestController
-@RequestMapping(value="/users")
-public class UserResource {
-	
+@RequestMapping(value="/demands")
+public class DemandResource {
+
 	@Autowired
-	UserService userService;
+	DemandService demandService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		return ResponseEntity.ok().body(userService.findAll());
+	public ResponseEntity<List<Demand>> findAll() {
+		return ResponseEntity.ok(demandService.findAll());
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Optional<User>> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(userService.findById(id));
+	public ResponseEntity<Optional<Demand>> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(demandService.findById(id));
 	}
-	
 }
