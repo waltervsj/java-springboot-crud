@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.walter.workshop.entities.enums.DemandStatus;
+
 @Entity
 public class Demand implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,6 +20,7 @@ public class Demand implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant moment;
+	private Integer demandStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -35,6 +38,12 @@ public class Demand implements Serializable {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
+	public DemandStatus getDemandStatus() {
+		return DemandStatus.valueOf(demandStatus);
+	}
+	public void setDemandStatus(DemandStatus demandStatus) {
+		if (demandStatus != null) this.demandStatus = demandStatus.getCode();
+	}
 	public User getUser() {
 		return user;
 	}
@@ -44,9 +53,10 @@ public class Demand implements Serializable {
 	
 	public Demand() {}
 	
-	public Demand(Long id, Instant moment, User user) {
+	public Demand(Long id, Instant moment, DemandStatus demandStatus, User user) {
 		this.id = id;
 		this.moment = moment;
+		this.setDemandStatus(demandStatus);
 		this.user = user;
 	}
 	

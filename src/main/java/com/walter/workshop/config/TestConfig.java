@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.walter.workshop.entities.Demand;
 import com.walter.workshop.entities.User;
+import com.walter.workshop.entities.enums.DemandStatus;
 import com.walter.workshop.repositories.DemandRepository;
 import com.walter.workshop.repositories.UserRepository;
 
@@ -29,9 +30,9 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		
-		Demand demand1 = new Demand(null, Instant.now(), u1);
-		Demand demand2 = new Demand(null, Instant.now(), u2);
-		Demand demand3 = new Demand(null, Instant.now(), u1);
+		Demand demand1 = new Demand(null, Instant.now(), DemandStatus.PAID, u1);
+		Demand demand2 = new Demand(null, Instant.now(), DemandStatus.WAITING_PAYMENT, u2);
+		Demand demand3 = new Demand(null, Instant.now(), DemandStatus.CANCELED, u1);
 		
 		demandRepository.saveAll(Arrays.asList(demand1, demand2, demand3));
 	}
