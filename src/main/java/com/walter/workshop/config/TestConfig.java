@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.walter.workshop.entities.Category;
 import com.walter.workshop.entities.Demand;
 import com.walter.workshop.entities.User;
 import com.walter.workshop.entities.enums.DemandStatus;
+import com.walter.workshop.repositories.CategoryRepository;
 import com.walter.workshop.repositories.DemandRepository;
 import com.walter.workshop.repositories.UserRepository;
 
@@ -22,6 +24,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private DemandRepository demandRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -35,5 +40,11 @@ public class TestConfig implements CommandLineRunner {
 		Demand demand3 = new Demand(null, Instant.now(), DemandStatus.CANCELED, u1);
 		
 		demandRepository.saveAll(Arrays.asList(demand1, demand2, demand3));
+		
+		Category category1 = new Category(null, "Eletronics");
+		Category category2 = new Category(null, "Books");
+		Category category3 = new Category(null, "Computers");
+		
+		categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
 	}
 }
