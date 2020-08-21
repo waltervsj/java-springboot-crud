@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.walter.workshop.entities.Category;
 import com.walter.workshop.entities.Demand;
+import com.walter.workshop.entities.DemandItem;
 import com.walter.workshop.entities.Product;
 import com.walter.workshop.entities.User;
 import com.walter.workshop.entities.enums.DemandStatus;
 import com.walter.workshop.repositories.CategoryRepository;
+import com.walter.workshop.repositories.DemandItemRepository;
 import com.walter.workshop.repositories.DemandRepository;
 import com.walter.workshop.repositories.ProductRepository;
 import com.walter.workshop.repositories.UserRepository;
@@ -32,6 +34,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private DemandItemRepository demandItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -57,7 +62,22 @@ public class TestConfig implements CommandLineRunner {
 		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
 		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, ""); 
+	
+		p1.getCategories().add(category2);
+		p2.getCategories().add(category1);
+		p2.getCategories().add(category3);
+		p3.getCategories().add(category3);
+		p4.getCategories().add(category3);
+		p5.getCategories().add(category2);
 		
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		
+		DemandItem oi1 = new DemandItem(demand1, p1, 2, p1.getPrice());
+		DemandItem oi2 = new DemandItem(demand1, p3, 1, p3.getPrice());
+		DemandItem oi3 = new DemandItem(demand2, p3, 2, p3.getPrice());
+		DemandItem oi4 = new DemandItem(demand3, p5, 2, p5.getPrice()); 
+
+		demandItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 }
