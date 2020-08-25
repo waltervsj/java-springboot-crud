@@ -81,6 +81,13 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.password = password;
 	}
+	
+	public void clone(User userToClone) {
+		this.setName(userToClone.getName());
+		this.setEmail(userToClone.getEmail());
+		this.setPhone(userToClone.getPhone());
+		this.setPassword(userToClone.getPassword());
+	}
 
 	@Override
 	public int hashCode() {
