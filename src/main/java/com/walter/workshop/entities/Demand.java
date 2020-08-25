@@ -91,6 +91,14 @@ public class Demand implements Serializable {
 		this.setDemandStatus(demandStatus);
 		this.user = user;
 	}
+	
+	public Double getTotal() {
+		Double total = 0.0;
+		for(DemandItem item : this.getDemandItems()) {
+			total += item.getSubTotal();
+		}
+		return total;
+	}
 
 	@Override
 	public int hashCode() {

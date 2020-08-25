@@ -60,6 +60,10 @@ public class DemandItem implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 	}
+	
+	public Double getSubTotal() {
+		return price * quantity;
+	}
 
 	@Override
 	public int hashCode() {
