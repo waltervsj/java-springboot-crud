@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.walter.workshop.entities.enums.DemandStatus;
 
@@ -24,6 +26,9 @@ public class Demand implements Serializable {
 	private Long id;
 	private Instant moment;
 	private Integer demandStatus;
+	
+	@OneToOne(mappedBy = "demand", cascade = CascadeType.ALL)
+	private Payment payment;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -55,6 +60,14 @@ public class Demand implements Serializable {
 	public void setDemandStatus(DemandStatus demandStatus) {
 		if (demandStatus != null)
 			this.demandStatus = demandStatus.getCode();
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	public User getUser() {

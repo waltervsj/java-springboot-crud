@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.walter.workshop.entities.Category;
 import com.walter.workshop.entities.Demand;
 import com.walter.workshop.entities.DemandItem;
+import com.walter.workshop.entities.Payment;
 import com.walter.workshop.entities.Product;
 import com.walter.workshop.entities.User;
 import com.walter.workshop.entities.enums.DemandStatus;
@@ -79,5 +80,9 @@ public class TestConfig implements CommandLineRunner {
 		DemandItem oi4 = new DemandItem(demand3, p5, 2, p5.getPrice()); 
 
 		demandItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.now(), demand1);
+		demand1.setPayment(pay1);
+		demandRepository.save(demand1);
 	}
 }
