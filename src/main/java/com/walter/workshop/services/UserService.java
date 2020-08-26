@@ -3,6 +3,8 @@ package com.walter.workshop.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -42,8 +44,12 @@ public class UserService {
 	}
 
 	public User update(Long id, User user) {
-		User updateUser = userRepository.getOne(id);
-		updateUser.clone(user);
-		return userRepository.save(updateUser);
+		try {
+			User updateUser = userRepository.getOne(id);
+			updateUser.clone(user);
+			return userRepository.save(updateUser);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 }

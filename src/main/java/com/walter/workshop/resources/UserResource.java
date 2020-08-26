@@ -18,8 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.walter.workshop.entities.User;
 import com.walter.workshop.services.UserService;
 
-import javassist.NotFoundException;
-
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
